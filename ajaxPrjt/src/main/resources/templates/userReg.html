@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h3>회원가입</h3>
+ <form action="/userRegProc" method="post" enctype="multipart/form-data">
+	<input name="name" value="park">
+	<input name="hobby" value="read">
+	<input name="hobby" value="game"> 
+	<input name="age" value="">
+	<input name="pic" type="file"><!-- html의 name과 vo의 필드명 다르게 써야함 -->
+	<input name="birth" type="text">
+	<button>등록</button>
+</form>
+<hr>
+<!-- List로 주고받기 -->
+<!-- json으로 보낼때는 name 설정을 VO 필드명[인덱스]로 안해도 됨 -->
+<form action="/userRegListVO" method="get">
+	<input name="userlist[0].name" value="park">
+	<input name="userlist[0].age" value="20"><br>
+	
+	<input name="userlist[1].name" value="kim">
+	<input name="userlist[1].age" value="25"><br>
+	<button>등록</button>
+</form>
+</body>
+</html>

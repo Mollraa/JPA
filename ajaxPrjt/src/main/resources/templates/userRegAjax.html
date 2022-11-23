@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="/scripts/json.min.js"></script>
+<script>
+//script가 위에 있는 경우 page load event 그려줘야함
+$(function(){
+	$.ajax({
+		url : "/list",
+		//dataType : "json",
+	}).then(res=>{
+		console.log(typeof res); 
+		console.log(res);
+		list.innerHTML = res.name
+	}) // .then = succes와 동일함. 
+	
+	// 등록이벤트
+	$('#btn').on('click', function(){
+		data = {'userlist[0].name':'choi', 'userlist[0].age':20, 
+				'userlist[1].name':'park', 'userlist[1].age':25} 
+		$.ajax({
+			url:"/reg",
+			method : "post",
+			//data : $("#frm").serialize() // 보낼 데이터, 질의문자열 
+			//data : $("#frm").serializeObject() // 질의문자열 
+			//data : {name:'choi', age:20} // 질의문자열
+			
+			//data : JSON.stringify($("#frm").serializeObject()),// JSON.stringify가 들어가야 object -> json 타입이 됨 
+			//data : JSON.stringify(data),
+			//contentType : "application/json"
+			data : data,
+		}).then(result => {   // suscces function과 동일함
+			console.log('ajax의 결과값', result)
+			console.log('ajax data 타입', typeof result)
+			
+			//map으로 보냈을 때, 바로 결과값 꺼내쓰면 됨
+			console.log('map으로 보낸 cnt', result.cnt)
+		})
+	})
+})
+</script>
+</head>
+<body>
+<h3>회원관리</h3>
+회원리스트 
+<div id="list"></div>
+
+ <form action="/userRegProc" id = "frm" 
+ 		method="post" enctype="multipart/form-data">
+	<input name="name" value="park">
+	<input name="hobby" value="read">
+	<input name="hobby" value="game"> 
+	<input name="age" value="">
+	<input name="pic" type="file"><!-- html의 name과 vo의 필드명 다르게 써야함 -->
+	<input name="birth" type="text">
+	<button type="button" id="btn" >등록</button>
+</form>
+<hr>
+<!-- List로 주고받기 -->
+<!-- json으로 보낼때는 name 설정을 VO 필드명[인덱스]로 안해도 됨 -->
+<form action="/userRegListVO" method="get" id="frm2">
+	<div>
+		<input name="name" value="park">
+		<input name="age" value="20"><br>
+	</div>
+	<div>
+	<input name="name" value="kim">
+	<input name="age" value="25"><br>
+	</div>
+	<button>등록</button>
+</form>
+</body>
+</html>

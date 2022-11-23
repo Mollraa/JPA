@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+메인페이지
+[[${userVO}]]
+<!-- } 뺴먹어서 오류남 -->
+<hr>
+[[${param.search}]]
+<script>
+if('[[${msg}]]' != '')
+	alert('[[${msg}]]')
+</script>
+[[${msg}]]
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>TestAjaxController</title>
+<!-- jQuery CDN -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="/scripts/json.min.js"></script>
+<script>
+$(function(){
+	$.ajax({
+		//요안에 옵션 다들어감
+		url:"/list"
+		//succes말고 then쓰세요
+//		dataType: "json" -> @ResponseBody //response contentType :json
+	}).then(res=>{
+		console.log(typeof res)
+		console.log(res)
+		list.innerHTML = res.name
+	})
+	
+	//등록 이벤트
+	$('#btn').on("click", function(){
+		data: [ "userlist[0].name":'chio', "userlist[0].age":20, 
+				"userlist[1].name":'park', "userlist[1].age":20,
+				"userlist[2].name":'jin', "userlist[0].age":20]
+		$.ajax({
+			url:"/reg",
+			method: "post",
+			//data: $('#frm').serialize() //질의 문자열(query string)
+			//data: $('#frm').serializeObject() //질의 문자열 안됨
+			//data : {name:'chio', age:20} //질의 문자열
+			//data : JSON.stringify($('#frm').serializeObject()) //json string 
+			//data : JSON.stringify({name:'chio', age:20})
+			data : JSON.stringify(data)
+			, contentType : "application/json"
+		}).then(reuslt => {
+			console.log(result)
+		})
+	})
+})
+</script>
+</head>
+<body>
+	<h3>회원관리</h3>
+	회원리스트
+	<div id="list"></div>
+
+	<!-- action = 핸들러값 -->
+	<form id="frm" action="userRegProc" method="get">
+		<input name="name" value="bee"> <input name="age" value="20">
+		<button type="button" id="btn">등록</button>
+		<!-- type 생략하면 submit이 디폴트 -->
+	</form>
+	<br>
+	<h4>date java, frm2</h4>
+	<form action="userRegdate" method="post" enctype="multipart/form-data">
+		<input name="name" value="gini's"> <input name="hobby"
+			value="movie"> <input name="age" value=""> <input
+			name="pic" type="file"> <input name="birth" type="text">
+		<button id="btn">등록</button>
+	</form>
+	<br>
+
+	<hr>
+	<h4>frm2</h4>
+	<form action="/userRegListVO" method="get" id="frm2">
+		<input name="name" value="gin"> <input name="hobby"
+			value="movie"> <input name="age" value="20"> <input
+			name="pic" type="file">
+		<button type="button">등록</button>
+
+	</form>
+	<br>
+	<hr>
+
+	<hr>
+	<h4>requsertParam</h4>
+	<form action="userRegParam" method="get">
+		<!-- 
+		<input name="name" value="bee">
+		 -->
+
+		<input name="age" value="20">
+		<button>등록</button>
+	</form>
+	<br>
+	<hr>
+	<h4>다건등록 예제</h4>
+	<form action="userRegArray" method="get">
+		<input name="name" value="bee"> <input name="hobby"
+			value="read"> <input name="hobby" value="movie"> <input
+			name="hobby" value="game"> <input name="age" value="20">
+		<button>등록</button>
+	</form>
+	<br>
+	<hr>
+	<h4>userRegListVo</h4>
+	<form action="userRegListVo" method="get">
+		<input name="userlist[0].name" value="bee"> <input
+			name="userlist[0].age" value="20"><br> <input
+			name="userlist[1].name" value="gee"> <input
+			name="userlist[1].age" value="21">
+		<button>등록</button>
+	</form>
+	<br>
+	<hr>
+	<h4>img</h4>
+	<form action="userRegimg" method="post" enctype="multipart/form-data">
+		<input name="name" value="gini's"> <input name="hobby"
+			value="movie"> <input name="age" value="20"> <input
+			name="pic" type="file">
+		<button>등록</button>
+	</form>
+	<br>
+	<hr>
+	<!-- 
+	<h4>date sql </h4>
+	<form action="userRegimg" method="post" enctype="multipart/form-data">
+		<input name="name" value="gini's">
+		<input name="hobby" value="movie">
+		<input name="age" value="20">
+		<input name="pic" type="file">
+		<input name="birth" type="date">
+		<button>등록</button>
+	</form><br>
+	<hr>
+	 -->
+	
+</body>
+</html>

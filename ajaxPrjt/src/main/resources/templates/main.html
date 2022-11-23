@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<hr>메인 페이지<hr>
+ <br>
+<!-- forward : 커맨드 객체(vo) 꺼내서 쓰기 가능. vo.name... -->
+<!-- @ModelAtrribut 사용하면 userVO 대신 이름 바꿔서도 가능함 -->
+[[${userVO}]] 
+<br>
+[[${param.search}]]
+<br>
+<!-- addFlashAttribute : 등록 후 한번 사용하고 나면 사라짐 -->
+
+<script> 
+// 메시지 창 한번 알림 후 새로 고침하고 나면 다시 알림창 안 뜸
+if('[[${msg}]]' !='')
+	alert('[[${msg}]]')
+</script> 
+[[${msg}]]
+</body>
+</html>
