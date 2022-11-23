@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.prj.cosm.sales.client.mapper.ClientMapper">
+
+	<!-- 회원 등록 -->
+	<insert id="clientIn" parameterType="ClientVO">
+		INSERT INTO client(
+		<if test="name!=null or !name.equals('')">
+			NAME
+		</if>
+		<if test="businessNo!=null or !businessNo.equals('')">
+			,BUSINESS_NO
+		</if>
+		<if test="licenseImg!=null or !licenseImg.equals('')">
+			,LICENSE_IMG
+		</if>
+		<if test="userNo!=null or !userNo.equals('')">
+			,USERS_NO
+		</if>
+		<if test="openDate!=null">
+			,OPEN_DATE
+		</if>
+		) VALUES(
+		<if test="name!=null or !name.equals('')">
+			#{name}
+		</if>
+		<if test="businessNo!=null or !businessNo.equals('')">
+			,#{businessNo}
+		</if>
+		<if test="licenseImg!=null or !licenseImg.equals('')">
+			,#{licenseImg}
+		</if>
+		<if test="userNo!=null or !userNo.equals('')">
+			,#{userNo}
+		</if>
+		<if test="openDate!=null">
+			,#{openDate}
+		</if>
+		)
+	</insert>
+
+
+	<!-- 조회 -->
+	<select id="myInfo" resultType="ClientVO">
+		select * from client order by
+		client_no
+	</select>
+	<!-- 수정 -->
+	<update id="updateMy">
+
+	</update>
+
+	<!-- 삭제 -->
+	<delete id="deleteMy">
+		DELETE FROM client where client_no = #{clientNo}
+
+	</delete>
+</mapper>
